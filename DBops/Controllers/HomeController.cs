@@ -10,7 +10,10 @@ namespace DBops.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            DBForDBopsEntities dBopsEntities = new DBForDBopsEntities();
+            var res = dBopsEntities.namedetails.ToList();
+
+            return View("TestDbConnectivity",res);
         }
 
         public ActionResult About()

@@ -7,6 +7,7 @@
       <Diagram DiagramId="c1f470f1d1dc403caf0654d711765239" Name="Diagram1">
         <EntityTypeShape EntityType="DBForDBopsModel.database_firewall_rules" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBForDBopsModel.ipv6_database_firewall_rules" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBForDBopsModel.namedetail" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

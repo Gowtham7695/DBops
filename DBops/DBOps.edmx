@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBForDBopsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBForDBopsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBForDBops.dbo.namedetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="namedetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DBForDBops.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="database_firewall_rules">
@@ -42,6 +51,12 @@ warning 6002: The table/view 'DBForDBops.sys.ipv6_database_firewall_rules' does 
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DBForDBopsModelStoreContainer">
+          <EntitySet Name="namedetails" EntityType="Self.namedetails" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [namedetails].[id] AS [id], 
+    [namedetails].[name] AS [name]
+    FROM [dbo].[namedetails] AS [namedetails]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
     [database_firewall_rules].[id] AS [id], 
@@ -63,8 +78,7 @@ warning 6002: The table/view 'DBForDBops.sys.ipv6_database_firewall_rules' does 
     FROM [sys].[ipv6_database_firewall_rules] AS [ipv6_database_firewall_rules]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBForDBopsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -103,7 +117,15 @@ warning 6002: The table/view 'DBForDBops.sys.ipv6_database_firewall_rules' does 
         <EntityContainer Name="DBForDBopsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
           <EntitySet Name="ipv6_database_firewall_rules" EntityType="Self.ipv6_database_firewall_rules" />
+          <EntitySet Name="namedetails" EntityType="DBForDBopsModel.namedetail" />
         </EntityContainer>
+        <EntityType Name="namedetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -131,6 +153,14 @@ warning 6002: The table/view 'DBForDBops.sys.ipv6_database_firewall_rules' does 
                 <ScalarProperty Name="end_ipv6_address" ColumnName="end_ipv6_address" />
                 <ScalarProperty Name="create_date" ColumnName="create_date" />
                 <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="namedetails">
+            <EntityTypeMapping TypeName="DBForDBopsModel.namedetail">
+              <MappingFragment StoreEntitySet="namedetails">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
